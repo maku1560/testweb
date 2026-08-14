@@ -1,0 +1,1 @@
+Overpass requests use public third-party endpoints and require client-side timeout/fallback handling.
