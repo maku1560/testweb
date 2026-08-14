@@ -28,7 +28,7 @@
     <aside class="panel" aria-label="検索と判定">
       <section class="intro">
         <p class="lead">日本全国、水の神様はどこにいる。</p>
-        <p class="subcopy">神社・祠などの名称から水神系スポットを探し、周辺の数と距離だけで「水神指数」を勝手に算出するエンタメ地図や。</p>
+        <p class="subcopy">神社・祠などの名称から水神系や海・水運信仰系のスポットを探し、周辺の数と距離だけで「水神指数」を勝手に算出するエンタメ地図や。</p>
       </section>
 
       <form id="search-form" class="search-box">
@@ -83,13 +83,13 @@
 
       <details class="about">
         <summary>判定の仕組み</summary>
-        <p>名称に「水神」「龍神・竜神」「水天宮」「弁財天・弁天」などを含む礼拝場所・祠を候補にする。近いほど点を高くし、名称ごとに重みを付ける。</p>
+        <p>水神・龍神・水天宮・弁天・貴船などを強い候補として扱い、住吉・宗像・厳島・琴平など海や水運との関係が強い信仰は弱めの重みで加える。OpenStreetMapとWikidataを照合する。</p>
         <p>洪水、浸水、地形、標高、河川流量などは判定に使ってへん。防災判断には使えへんで。</p>
       </details>
 
       <footer class="panel-footer">
         <p>地図：国土地理院「地理院タイル」</p>
-        <p>地点候補：© OpenStreetMap contributors</p>
+        <p>地点候補：© OpenStreetMap contributors / Wikidata</p>
       </footer>
     </aside>
 
@@ -103,6 +103,6 @@
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
   <script src="https://unpkg.com/maplibre-gl@5.12.0/dist/maplibre-gl.js"></script>
-  <script src="./app.js?v=4"></script>
+  <script src="./app.js?v=5"></script>
 </body>
 </html>
