@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f6f3ec" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="description" content="水神・龍神・弁財天などの祀られ方から土地の『水神指数』を眺める、科学的根拠のないエンタメ地図。" />
+  <title>水神リスクマップ</title>
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@6.3.0/dist/maplibre-gl.css" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand-wrap">
+      <div class="crest" aria-hidden="true">水</div>
+      <div>
+        <div class="eyebrow">SUIGEN FOLKLORE MAP</div>
+        <h1>水神リスクマップ</h1>
+      </div>
+    </div>
+    <div class="disclaimer-chip">科学的根拠はありません</div>
+  </header>
+
+  <main class="layout">
+    <aside class="panel" aria-label="検索と判定">
+      <section class="intro">
+        <p class="lead">日本全国、水の神様はどこにいる。</p>
+        <p class="subcopy">神社・祠などの名称から水神系スポットを探し、周辺の数と距離だけで「水神指数」を勝手に算出するエンタメ地図や。</p>
+      </section>
+
+      <form id="search-form" class="search-box">
+        <label for="place-input">住所・駅名・地名</label>
+        <div class="search-row">
+          <input id="place-input" name="q" type="search" placeholder="例：千葉県佐倉市 / 名古屋駅" autocomplete="street-address" />
+          <button class="primary" type="submit">探す</button>
+        </div>
+        <button id="locate-btn" class="ghost" type="button">現在地から見る</button>
+      </form>
+
+      <section class="settings" aria-label="判定設定">
+        <div class="setting-row">
+          <div>
+            <span class="setting-title">探索半径</span>
+            <span id="radius-label" class="setting-value">10 km</span>
+          </div>
+          <input id="radius" type="range" min="3" max="20" step="1" value="10" />
+        </div>
+      </section>
+
+      <section id="status-card" class="status-card idle" aria-live="polite">
+        <div class="status-kicker">現在の判定</div>
+        <div id="status-title" class="status-title">場所を検索</div>
+        <p id="status-text">地点を選ぶと、周辺の水神系スポットを調べるで。</p>
+      </section>
+
+      <section id="score-card" class="score-card hidden" aria-live="polite">
+        <div class="score-head">
+          <div>
+            <div class="status-kicker">水神指数</div>
+            <div id="score-number" class="score-number">0</div>
+          </div>
+          <div id="score-rank" class="rank">平穏</div>
+        </div>
+        <div class="meter"><div id="meter-fill" class="meter-fill"></div></div>
+        <p id="oracle" class="oracle"></p>
+        <div class="stat-grid">
+          <div><span id="spot-count">0</span><small>候補地点</small></div>
+          <div><span id="nearest-distance">—</span><small>最寄り</small></div>
+          <div><span id="strong-count">0</span><small>強い候補</small></div>
+        </div>
+      </section>
+
+      <section id="spots-section" class="spots-section hidden">
+        <div class="section-title-row">
+          <h2>近くの水神系スポット</h2>
+          <span id="result-radius" class="mini-chip"></span>
+        </div>
+        <ol id="spot-list" class="spot-list"></ol>
+      </section>
+
+      <details class="about">
+        <summary>判定の仕組み</summary>
+        <p>名称に「水神」「龍神・竜神」「水天宮」「弁財天・弁天」などを含む礼拝場所・祠を候補にする。近いほど点を高くし、名称ごとに重みを付ける。</p>
+        <p>洪水、浸水、地形、標高、河川流量などは判定に使ってへん。防災判断には使えへんで。</p>
+      </details>
+
+      <footer class="panel-footer">
+        <p>地図：国土地理院「地理院タイル」</p>
+        <p>地点候補：© OpenStreetMap contributors</p>
+      </footer>
+    </aside>
+
+    <section class="map-wrap" aria-label="地図">
+      <div id="map"></div>
+      <div class="map-note">クリックした地点からも判定できるで</div>
+      <button id="clear-btn" class="clear-btn hidden" type="button">判定を消す</button>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="https://unpkg.com/maplibre-gl@6.3.0/dist/maplibre-gl.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
